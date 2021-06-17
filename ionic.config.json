@@ -1,0 +1,7 @@
+{
+  "name": "fayce",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
