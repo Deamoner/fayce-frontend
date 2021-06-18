@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/landing"></ion-back-button>
+    </ion-buttons>
+    <ion-title>FAYCE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content-box">
+    <h1 class="ion-text-center">{{title}}</h1>
+    <div [innerHTML]="content" class="content"></div>
+  </div>
+</ion-content>

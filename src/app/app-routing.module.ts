@@ -17,6 +17,10 @@ const routes : Routes = [
         path : APP_ROUTES.SUPPORT,
         loadChildren : () => import( './pages/support/support.module' ).then( ( m : any ) => m.SupportPageModule ),
     },
+    {
+        path: `${APP_ROUTES.CONTENT}/:pageId`,
+        loadChildren: () => import( './pages/content/content.module' ).then( ( m : any ) => m.ContentPageModule ),
+    },
 ];
 
 @NgModule( {
