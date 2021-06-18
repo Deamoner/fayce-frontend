@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>FA<ion-text color="primary">Y</ion-text>CE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ng-container *ngIf="imageSelected">
+    <div class="image-preview">
+      <div class="image">
+        <img [src]="imageSelected" alt="">
+      </div>
+      <h4 class="ion-text-center"><ion-text color="primary">CURRENT PHOTO</ion-text></h4>
+    </div>
+    <div class="upload-new-image">
+      <h4 class="ion-text-center">UPLOAD DIFFERENT<br>PHOTO TO CONTROL</h4>
+      <div class="icon-main">
+        <img src="assets/images/upload-image-icon.png" alt="">
+      </div>
+    </div>
+    <div class="or-text ion-text-center">
+      <ion-text color="primary"><strong>OR</strong></ion-text>
+    </div>
+    <ion-button color="primary" expand="block"><strong>NEXT</strong></ion-button>
+  </ng-container>
+  <ng-container *ngIf="!imageSelected">
+    <div class="upload-image-box">
+      <div class="content-box">
+        <h4>UPLOAD PHOTO TO CONTROL</h4>
+        <div class="icon-main">
+          <img src="assets/images/upload-image-icon.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="checkbox-main">
+      <ion-item >
+        <ion-checkbox [(ngModel)]="acceptTerms" slot="start"></ion-checkbox>
+        <ion-label>I agree to FAYCE <a class="cursor-pointer"><strong>Terms Of Use, Ethics Policy</strong></a> and <a><strong>Privacy Policy.</strong></a></ion-label>
+      </ion-item>
+    </div>
+    <h4 class="ion-text-center">REALISTIC FACE CONTROL VIDEOS</h4>
+    <h5 class="ion-text-center"><ion-text color="primary">Transform photos using your face as the controller into high quality videos right from your phone!</ion-text></h5>
+    <p class="ion-text-center"><strong>Take control over a face in a photo & make them say anything you say exactly how you say it, simply  using your face.</strong></p>
+    <div class="icon-box">
+      <img src="assets/images/logo.png" alt="">
+    </div>
+  </ng-container>
+</ion-content>
