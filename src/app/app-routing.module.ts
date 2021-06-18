@@ -10,8 +10,12 @@ const routes : Routes = [
         pathMatch : 'full',
     },
     {
-        path : 'landing',
+        path : APP_ROUTES.LANDING,
         loadChildren : () => import( './pages/landing/landing.module' ).then( ( m : any ) => m.LandingPageModule ),
+    },
+    {
+        path : APP_ROUTES.SUPPORT,
+        loadChildren : () => import( './pages/support/support.module' ).then( ( m : any ) => m.SupportPageModule ),
     },
 ];
 
