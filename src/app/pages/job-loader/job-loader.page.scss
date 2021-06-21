@@ -1,0 +1,34 @@
+.set-full-height {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.logo {
+    img {
+        max-width: 15rem;
+    }
+}
+
+.progress-bar {
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    background: #e5e9f2;
+    width: 20rem;
+
+    .progress {
+        height: 100%;
+        width: 0;
+        border-radius: 0.5rem;
+        background: var(--ion-color-primary);
+    }
+}

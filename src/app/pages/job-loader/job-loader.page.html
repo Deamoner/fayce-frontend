@@ -1,0 +1,11 @@
+<ion-content class="ion-padding" >
+  <div class="set-full-height">
+    <h2>PLEASE WAIT WHILE WE GENERATE YOUR VIDEO</h2>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="">
+    </div>
+    <div class="progress-bar">
+      <div class="progress" [style.width]="(jobService.job$ | async)?.progress + '%'"></div>
+    </div>
+  </div>
+</ion-content>
