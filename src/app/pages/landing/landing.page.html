@@ -8,26 +8,26 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ng-container *ngIf="imageSelected">
+  <ng-container *ngIf="(imageSelected | async)">
     <div class="image-preview">
       <div class="image">
-        <img [src]="imageSelected" alt="">
+        <img [src]="imageSelected | async" alt="">
       </div>
       <h4 class="ion-text-center"><ion-text color="primary">CURRENT PHOTO</ion-text></h4>
     </div>
     <div class="upload-new-image">
       <h4 class="ion-text-center">UPLOAD DIFFERENT<br>PHOTO TO CONTROL</h4>
-      <div class="icon-main">
+      <div class="icon-main" (click)="uploadImage()">
         <img src="assets/images/upload-image-icon.png" alt="">
       </div>
     </div>
     <div class="or-text ion-text-center">
       <ion-text color="primary"><strong>OR</strong></ion-text>
     </div>
-    <ion-button color="primary" expand="block"><strong>NEXT</strong></ion-button>
+    <ion-button color="primary" expand="block" (click)="next()"><strong>NEXT</strong></ion-button>
   </ng-container>
-  <ng-container *ngIf="!imageSelected">
-    <div class="upload-image-box">
+  <ng-container *ngIf="(imageSelected | async) === null">
+    <div class="upload-image-box" (click)="uploadImage()">
       <div class="content-box">
         <h4>UPLOAD PHOTO TO CONTROL</h4>
         <div class="icon-main">
@@ -38,7 +38,7 @@
     <div class="checkbox-main">
       <ion-item >
         <ion-checkbox [(ngModel)]="acceptTerms" slot="start"></ion-checkbox>
-        <ion-label>I agree to FAYCE <a class="cursor-pointer"><strong>Terms Of Use, Ethics Policy</strong></a> and <a><strong>Privacy Policy.</strong></a></ion-label>
+        <ion-label>I agree to FAYCE <a class="cursor-pointer" (click)="goToContent( 'terms-of-use' )"><strong>Terms Of Use,</strong></a>  <a (click)="goToContent( 'ethic' )">Ethics Policy</a> and <a (click)="goToContent( 'privacy-policy' )"><strong>Privacy Policy.</strong></a></ion-label>
       </ion-item>
     </div>
     <h4 class="ion-text-center">REALISTIC FACE CONTROL VIDEOS</h4>

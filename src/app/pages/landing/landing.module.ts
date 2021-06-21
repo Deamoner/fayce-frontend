@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
+import { CameraPreviewModule } from 'src/app/components/camera-preview/camera-preview.module';
+
 import { LandingPageRoutingModule } from './landing-routing.module';
 import { LandingPage } from './landing.page';
 
@@ -12,6 +14,7 @@ import { LandingPage } from './landing.page';
         FormsModule,
         IonicModule,
         LandingPageRoutingModule,
+        CameraPreviewModule,
     ],
     declarations: [ LandingPage ],
 } )
