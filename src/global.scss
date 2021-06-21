@@ -60,3 +60,19 @@ ion-title {
 ion-header {
     border-bottom: 0.1rem solid var(--ion-color-primary);
 }
+
+.camera-preview-start {
+    background: transparent;
+
+    ion-router-outlet {
+        opacity: 0;
+    }
+
+    ion-content,
+    body,
+    ion-modal {
+        --background: transparent;
+
+        background: transparent;
+    }
+}
