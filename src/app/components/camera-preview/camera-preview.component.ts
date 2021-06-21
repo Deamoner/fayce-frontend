@@ -65,7 +65,7 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         this.cameraPreview.startCamera( cameraPreviewOpts );
     }
 
-    private startTimer() : void {
+    public startTimer() : void {
         this.hideHint = true;
         if ( this.timer > 0 ) {
             this.timer -= 1;

@@ -11,7 +11,7 @@ import { JobService } from 'src/app/services/job/job.service';
 export class JobLoaderPage implements OnInit {
 
     constructor(
-        private jobService : JobService,
+        public jobService : JobService,
     ) { }
 
     public ngOnInit() : void {
