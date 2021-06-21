@@ -1,0 +1,49 @@
+.help {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+
+    ion-icon {
+        font-size: 5rem;
+    }
+
+    p {
+        font-size: 2.1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--ion-color-dark);
+    }
+
+    h4 {
+        font-size: 2.1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: var(--ion-color-primary);
+    }
+}
+
+.timer-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4.2rem;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.video-ref {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #000;
+}

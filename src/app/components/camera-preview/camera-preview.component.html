@@ -1,0 +1,48 @@
+<ion-content>
+  <div class="help" *ngIf="!hideHint">
+    <p>NOW IT IS TIME TO MAKE THE PHOTO COME TO LIFE!<br>SIMPLY RECORD YOUR FACE WITH MINIMAL HEAD MOVEMENTS WHILE SAYING WHATEVER YOU WANT THE PERSON IN THE PHOTO TO SAY.</p>
+    <h4>WHEN YOU ARE READY<br>PRESS RECORD BELOW.</h4>
+    <ion-icon color="primary" name="arrow-down-outline"></ion-icon>
+  </div>
+  <input type="file" hidden #selectVideo id="selectVideo" (change)="videoSelected( $event )">
+  <div class="timer-box" *ngIf="timer > 0 && timer < 4">{{timer}}</div>
+  <video [src]="videoUrl" *ngIf="videoUrl" class="video-ref" controls></video>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="reload"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      <ion-button fill="clear" (click)="startTimer()" *ngIf="!isRecording">
+        <ion-icon slot="icon-only" name="mic"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="danger" (click)="stopVideoRecording()" *ngIf="isRecording">
+        <ion-icon slot="icon-only" name="mic"></ion-icon>
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button clear>
+        00:{{ seconds }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="dismiss()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+          BACK
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="videoUrl">
+        <ion-button expand="block" (click)="next()">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          NEXT
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
