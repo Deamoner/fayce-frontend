@@ -20,4 +20,8 @@ export class AppComponent {
     public goToContent ( id : string ) : void {
         this.navCtrl.navigateForward( [ `/${APP_ROUTES.CONTENT}/${id}` ] );
     }
+
+    public goToRoot() : void {
+        this.navCtrl.navigateRoot( `/${APP_ROUTES.LANDING}` );
+    }
 }

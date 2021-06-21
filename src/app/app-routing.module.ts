@@ -21,6 +21,14 @@ const routes : Routes = [
         path: `${APP_ROUTES.CONTENT}/:pageId`,
         loadChildren: () => import( './pages/content/content.module' ).then( ( m : any ) => m.ContentPageModule ),
     },
+    {
+        path: `${APP_ROUTES.VIDEO}/:videoId`,
+        loadChildren: () => import( './pages/video-details/video-details.module' ).then( ( m : any ) => m.VideoDetailsPageModule ),
+    },
+    {
+        path: `${APP_ROUTES.JOB_LOADER}`,
+        loadChildren: () => import( './pages/job-loader/job-loader.module' ).then( ( m : any ) => m.JobLoaderPageModule ),
+    },
 ];
 
 @NgModule( {

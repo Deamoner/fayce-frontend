@@ -1,6 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { CameraPreview } from '@ionic-native/camera-preview/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,8 +17,9 @@ import { AppComponent } from './app.component';
             mode : 'md',
         } ),
         AppRoutingModule,
+        HttpClientModule,
     ],
-    providers: [ { provide: RouteReuseStrategy, useClass: IonicRouteStrategy } ],
+    providers: [ { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, CameraPreview ],
     bootstrap: [ AppComponent ],
 } )
 export class AppModule {}
