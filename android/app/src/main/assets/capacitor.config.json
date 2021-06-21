@@ -1,0 +1,6 @@
+{
+	"appId": "com.fayce",
+	"appName": "fayce",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
