@@ -114,23 +114,20 @@ export class JobService {
         return this.uploadImage( this.videoUploadUrl, this.selectedVideoUrl ).toPromise();
     }
 
-    private async createFile( url : string, type : string = 'image/png' ) : Promise<File> {
+    public async createFile( url : string, type : string = 'image/png' ) : Promise<File> {
         const fileName : string =  ( type === 'image/png' ) ? '1.png' : '1.mp4';
-        // if ( type === 'image/png' ) {
-        const response : any = await fetch( url );
-        const data : any = await response.blob();
+        let data : any ;
+        if ( url.includes( 'base64' ) ) {
+            const urlSplit : string[] = url.split( ',' );
+            data = atob( urlSplit[ urlSplit.length - 1 ] );
+        } else {
+            const response : any = await fetch( url );
+            data = response.blob();
+        }
         const metadata : any = {
             type,
         };
         return new File( [ data ], `${fileName}`, metadata );
-        // } else {
-        //     const response : any = await Filesystem.readFile( { path : url } );
-        //     const data : any = atob( response );
-        //     const metadata : any = {
-        //         type,
-        //     };
-        //     return new File( [ data ], `${fileName}`, metadata );
-        // }
 
     }
 

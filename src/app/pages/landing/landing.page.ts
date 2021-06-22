@@ -5,6 +5,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 
 import { CameraPreviewComponent } from 'src/app/components/camera-preview/camera-preview.component';
+import { ImageEditorComponent } from 'src/app/components/image-editor/image-editor.component';
 import { APP_ROUTES } from 'src/app/constants/APP_ROUTES';
 import { JobService } from 'src/app/services/job/job.service';
 import { ToasterService } from 'src/app/services/toaster/toaster.service';
@@ -45,9 +46,26 @@ export class LandingPage implements OnInit {
             } );
             this.jobService.selectedImageUrl = image.webPath;
             this.imageSelected.next( this.domSanitizer.bypassSecurityTrustResourceUrl( image.webPath ) );
+            this.edit();
         } else {
             this.toasterService.presentToast( 'Accept terms of use and privacy policy.' );
         }
+    }
+
+    public async edit() : Promise<void> {
+        const modalRef : HTMLIonModalElement = await this.modalCtrl.create( {
+            component : ImageEditorComponent,
+            componentProps : {
+                imageUrl : this.imageSelected.getValue(),
+            },
+        } );
+        modalRef.present();
+        modalRef.onDidDismiss().then( ( res : any ) => {
+            if ( res ) {
+                this.imageSelected.next( res.data );
+                this.jobService.selectedImageUrl = res.data;
+            }
+        } );
     }
 
     public async next() : Promise<void> {
