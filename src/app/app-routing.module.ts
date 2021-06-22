@@ -26,7 +26,7 @@ const routes : Routes = [
         loadChildren: () => import( './pages/video-details/video-details.module' ).then( ( m : any ) => m.VideoDetailsPageModule ),
     },
     {
-        path: `${APP_ROUTES.JOB_LOADER}`,
+        path: `${APP_ROUTES.JOB_LOADER}/:videoId`,
         loadChildren: () => import( './pages/job-loader/job-loader.module' ).then( ( m : any ) => m.JobLoaderPageModule ),
     },
 ];

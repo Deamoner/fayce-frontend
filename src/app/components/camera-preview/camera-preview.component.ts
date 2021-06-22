@@ -127,13 +127,18 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
 
     public videoSelected( ev : any ) : void {
         const file : File = this.selectVideo.nativeElement.files[ 0 ];
-        this.videoUrl = 'mk.mp4';
+        const reader : FileReader = new FileReader();
+        reader.addEventListener( 'load', ( event : any ) => {
+            this.videoUrl = event.target.result;
+            this.cd.detectChanges();
+        } );
+        reader.readAsDataURL( file );
         this.jobService.selectedVideoUrl = file;
         this.cd.detectChanges();
     }
 
     public next() : void {
-        this.navCtrl.navigateRoot( APP_ROUTES.JOB_LOADER );
+        this.navCtrl.navigateRoot( `${APP_ROUTES.JOB_LOADER}/${this.jobService.jobId}` );
         this.modalCtrl.dismiss();
     }
 
