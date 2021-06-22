@@ -28,4 +28,8 @@ export class ImageEditorComponent implements AfterViewInit {
         this.modalCtrl.dismiss( this.angularCropper.cropper.getCroppedCanvas().toDataURL( 'image/png' ) );
     }
 
+    public close() : void {
+        this.modalCtrl.dismiss();
+    }
+
 }
