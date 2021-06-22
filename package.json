@@ -51,6 +51,7 @@
     "cropperjs": "^1.5.12",
     "lint-staged": "^11.0.0",
     "rxjs": "~6.6.0",
+    "smartcrop": "^2.0.3",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "tslib": "^2.0.0",
