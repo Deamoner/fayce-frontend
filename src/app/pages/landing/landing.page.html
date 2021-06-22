@@ -11,7 +11,10 @@
   <ng-container *ngIf="(imageSelected | async)">
     <div class="image-preview">
       <div class="image">
-        <img [src]="imageSelected | async" alt="">
+        <div class="loader" *ngIf="showImageLoader | async">
+          <ion-spinner></ion-spinner>
+        </div>
+        <img #imageRef id="imageRef" [src]="imageSelected | async" alt="">
       </div>
       <h4 class="ion-text-center"><ion-text color="primary">CURRENT PHOTO</ion-text></h4>
     </div>
