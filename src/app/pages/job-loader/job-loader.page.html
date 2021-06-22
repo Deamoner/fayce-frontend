@@ -5,7 +5,9 @@
       <img src="assets/images/logo.png" alt="">
     </div>
     <div class="progress-bar">
-      <div class="progress" [style.width]="(jobService.job$ | async)?.progress + '%'"></div>
+      <div class="progress"
+        [ngClass]="{ 'animated' : (jobService.job$ | async)?.progress === undefined || (jobService.job$ | async)?.progress === null || (jobService.job$ | async)?.progress === '0' }"
+        [style.width]="(jobService.job$ | async)?.progress + '%'"></div>
     </div>
   </div>
 </ion-content>
