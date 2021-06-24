@@ -27,7 +27,7 @@
     <div class="or-text ion-text-center">
       <ion-text color="primary"><strong>OR</strong></ion-text>
     </div>
-    <ion-button color="primary" expand="block" (click)="next()"><strong>NEXT</strong></ion-button>
+    <ion-button color="primary" expand="block" [disabled]="disabled" (click)="next()"><strong>NEXT</strong></ion-button>
   </ng-container>
   <ng-container *ngIf="(imageSelected | async) === null">
     <div class="upload-image-box" (click)="uploadImage()">
@@ -41,7 +41,7 @@
     <div class="checkbox-main">
       <ion-item >
         <ion-checkbox [(ngModel)]="acceptTerms" slot="start"></ion-checkbox>
-        <ion-label>I agree to FAYCE <a class="cursor-pointer" (click)="goToContent( 'terms-of-use' )"><strong>Terms Of Use,</strong></a>  <a (click)="goToContent( 'ethic' )">Ethics Policy</a> and <a (click)="goToContent( 'privacy-policy' )"><strong>Privacy Policy.</strong></a></ion-label>
+        <ion-label>I agree to FAYCE <a class="cursor-pointer" (click)="goToContent( 'terms-of-use' )"><strong>Terms Of Use,</strong></a>  <a (click)="goToContent( 'ethic' )"><strong>Ethics Policy</strong></a> and <a (click)="goToContent( 'privacy-policy' )"><strong>Privacy Policy.</strong></a></ion-label>
       </ion-item>
     </div>
     <h4 class="ion-text-center">REALISTIC FACE CONTROL VIDEOS</h4>
