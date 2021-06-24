@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CameraPreview, CameraPreviewDimensions, CameraPreviewOptions, CameraPreviewPictureOptions } from '@ionic-native/camera-preview/ngx';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 
@@ -14,11 +15,13 @@ import { JobService } from 'src/app/services/job/job.service';
 export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     @Input() public photoUrl : string ;
     public hideHint : boolean = Boolean( false );
-    public videoUrl : string;
+    public videoUrl : string | SafeResourceUrl;
     public timer : number = 4;
     public seconds : number = 20;
     public isRecording : boolean = false;
+    public showLoader : number = 0;
     @ViewChild( 'selectVideo' ) public selectVideo : ElementRef;
+    public isWeb : boolean = Boolean( false );
     constructor(
         private modalCtrl : ModalController,
         private cameraPreview : CameraPreview,
@@ -26,7 +29,10 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         private platform : Platform,
         private jobService : JobService,
         private navCtrl : NavController,
-    ) { }
+        private dom : DomSanitizer,
+    ) {
+        this.isWeb = !this.platform.is( 'capacitor' );
+    }
 
     public ngAfterViewInit() : void {
         if ( this.platform.is( 'cordova' ) ) {
@@ -36,18 +42,21 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
 
     }
 
-    public ngOnDestroy() : void {
+    public async ngOnDestroy() : Promise<void> {
         if ( this.platform.is( 'cordova' ) ) {
             document.getElementsByTagName( 'html' )[ 0 ].classList.remove( 'camera-preview-start' );
             if ( this.isRecording ) {
-                this.cameraPreview.stopRecordVideo();
+                await this.cameraPreview.stopRecordVideo();
             }
-            this.cameraPreview.stopCamera();
+            await this.cameraPreview.stopCamera();
         }
     }
 
     public dismiss() : void {
-        this.modalCtrl.dismiss();
+        setTimeout( () => {
+            this.modalCtrl.dismiss();
+            this.jobService.selectedVideoUrl = undefined;
+        }, 2000 );
     }
 
     private startCameraStream() : void {
@@ -65,8 +74,15 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         this.cameraPreview.startCamera( cameraPreviewOpts );
     }
 
-    public startTimer() : void {
+    public startTimer( fromView? : boolean ) : void {
         this.hideHint = true;
+        this.videoUrl = undefined;
+        if ( this.isWeb ) {
+            return;
+        }
+        if ( fromView ) {
+            this.timer = 4;
+        }
         if ( this.timer > 0 ) {
             this.timer -= 1;
             this.cd.detectChanges();
@@ -83,7 +99,6 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     public startRecording() : void {
         this.videoUrl = undefined;
         if ( this.platform.is( 'cordova' ) ) {
-            this.hideHint = true;
             const videoOptions : any = {
                 cameraDirection : this.cameraPreview.CAMERA_DIRECTION.FRONT,
                 quality : 60,
@@ -91,9 +106,16 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
                 height: 1080,
                 withFlash: false,
             };
+            this.showLoader = 1;
             this.cameraPreview.startRecordVideo( videoOptions ).then( () => {
+                this.showLoader = 2;
+                setTimeout( () => {
+                    this.showLoader = 0;
+                    this.cd.detectChanges();
+                }, 200 );
                 this.seconds = 20;
                 this.isRecording = true;
+                this.runTimer();
                 this.cd.detectChanges();
             } ).catch( ( e : any ) => console.log( e ) );
         } else {
@@ -129,7 +151,7 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         const file : File = this.selectVideo.nativeElement.files[ 0 ];
         const reader : FileReader = new FileReader();
         reader.addEventListener( 'load', ( event : any ) => {
-            this.videoUrl = event.target.result;
+            this.videoUrl = this.dom.bypassSecurityTrustResourceUrl( event.target.result );
             this.cd.detectChanges();
         } );
         reader.readAsDataURL( file );
@@ -140,6 +162,7 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     public next() : void {
         this.navCtrl.navigateRoot( `${APP_ROUTES.JOB_LOADER}/${this.jobService.jobId}` );
         this.modalCtrl.dismiss();
+        document.getElementsByTagName( 'html' )[ 0 ].classList.remove( 'camera-preview-start' );
     }
 
 }

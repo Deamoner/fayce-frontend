@@ -47,3 +47,31 @@
     position: absolute;
     background: #000;
 }
+
+.top-right-photo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 0.1rem solid var(--ion-color-primary);
+
+    > img {
+        max-width: 15rem;
+        max-height: 15rem;
+        vertical-align: text-top;
+        object-fit: contain;
+    }
+
+    .fayce-logo {
+        position: absolute;
+        left: 0.8rem;
+        top: 0.8rem;
+        max-width: 30%;
+    }
+}
+
+.show-input {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
