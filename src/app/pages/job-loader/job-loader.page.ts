@@ -23,6 +23,7 @@ export class JobLoaderPage implements OnInit {
             await this.jobService.startUploadImage();
             await this.jobService.startUploadVideo();
             this.jobService.putJob().subscribe( () => {
+                this.jobService.startTime = 0;
                 this.jobService.keepCheckingJobStatus();
             } );
         }

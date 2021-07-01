@@ -4,6 +4,7 @@
     <div class="logo">
       <img src="assets/images/logo.png" alt="">
     </div>
+    <div *ngIf="(jobService.job$ | async)?.progress" class="ion-margin-bottom">{{ (jobService.job$ | async)?.progress }}%</div>
     <div class="progress-bar">
       <div class="progress"
         [ngClass]="{ 'animated' : (jobService.job$ | async)?.progress === undefined || (jobService.job$ | async)?.progress === null || (jobService.job$ | async)?.progress === '0' }"
