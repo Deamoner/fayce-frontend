@@ -37,7 +37,7 @@ export class VideoDetailsPage implements OnInit {
         await Share.share( {
             title: 'Fayce',
             text: 'FAYCE APP, REALISTIC FACE CONTROL VIDEOS!',
-            url: 'https://www.wix.com/feedback-ng/feedback/0975c75f-270c-4fd0-92b3-4cf57218a4c3',
+            url: `${this.videoUrl}`,
             dialogTitle: 'Share with buddies',
         } );
     }
@@ -47,7 +47,6 @@ export class VideoDetailsPage implements OnInit {
     }
 
     public async goToDownload() : Promise<void> {
-        await Browser.open( { url: 'http://capacitorjs.com/' } );
+        await Browser.open( { url: this.videoUrl } );
     }
-
 }
