@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { CameraPreview, CameraPreviewDimensions, CameraPreviewOptions, CameraPreviewPictureOptions } from '@ionic-native/camera-preview/ngx';
+import { CameraPreview, CameraPreviewOptions } from '@ionic-native/camera-preview/ngx';
+import { LastCam } from '@ionic-native/last-cam/ngx';
 import { ModalController, NavController, Platform } from '@ionic/angular';
 
 import { APP_ROUTES } from 'src/app/constants/APP_ROUTES';
@@ -22,6 +23,7 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     public showLoader : number = 0;
     @ViewChild( 'selectVideo' ) public selectVideo : ElementRef;
     public isWeb : boolean = Boolean( false );
+    private isIos : boolean = Boolean( false );
     constructor(
         private modalCtrl : ModalController,
         private cameraPreview : CameraPreview,
@@ -30,8 +32,10 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         private jobService : JobService,
         private navCtrl : NavController,
         private dom : DomSanitizer,
+        private lastCam : LastCam,
     ) {
         this.isWeb = !this.platform.is( 'capacitor' );
+        this.isIos = this.platform.is( 'ios' );
     }
 
     public ngAfterViewInit() : void {
@@ -46,9 +50,17 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         if ( this.platform.is( 'cordova' ) ) {
             document.getElementsByTagName( 'html' )[ 0 ].classList.remove( 'camera-preview-start' );
             if ( this.isRecording ) {
-                await this.cameraPreview.stopRecordVideo();
+                if ( this.isIos ) {
+                    await this.lastCam.stopVideoCapture();
+                } else {
+                    await this.cameraPreview.stopRecordVideo();
+                }
             }
-            await this.cameraPreview.stopCamera();
+            if ( this.isIos ) {
+                await this.lastCam.stopCamera();
+            } else {
+                await this.cameraPreview.stopCamera();
+            }
         }
     }
 
@@ -71,7 +83,11 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
             toBack: true,
             alpha: 1,
         };
-        this.cameraPreview.startCamera( cameraPreviewOpts );
+        if ( this.isIos ) {
+            this.lastCam.startCamera( cameraPreviewOpts );
+        } else {
+            this.cameraPreview.startCamera( cameraPreviewOpts );
+        }
     }
 
     public startTimer( fromView? : boolean ) : void {
@@ -107,7 +123,13 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
                 withFlash: false,
             };
             this.showLoader = 1;
-            this.cameraPreview.startRecordVideo( videoOptions ).then( () => {
+            let result : any;
+            if ( this.isIos ) {
+                result = this.lastCam.startVideoCapture();
+            } else {
+                result = this.cameraPreview.startRecordVideo( videoOptions );
+            }
+            result.then( () => {
                 this.showLoader = 2;
                 setTimeout( () => {
                     this.showLoader = 0;
@@ -124,7 +146,13 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     }
 
     public stopVideoRecording() : void {
-        this.cameraPreview.stopRecordVideo().then( ( res : string ) => {
+        let result : any;
+        if ( this.isIos ) {
+            result = this.lastCam.stopVideoCapture();
+        } else {
+            result = this.cameraPreview.stopRecordVideo();
+        }
+        result.then( ( res : string ) => {
             this.jobService.selectedVideoUrl = ( <any> window ).Ionic.WebView.convertFileSrc(  `file://${res}` );
             this.videoUrl = ( <any> window ).Ionic.WebView.convertFileSrc( `file://${res}` );
             this.cd.detectChanges();
@@ -142,7 +170,7 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         }
         if ( this.seconds === 0 ) {
             this.isRecording = false;
-            this.startRecording();
+            this.stopVideoRecording();
             this.cd.detectChanges();
         }
     }
@@ -152,10 +180,10 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
         const reader : FileReader = new FileReader();
         reader.addEventListener( 'load', ( event : any ) => {
             this.videoUrl = this.dom.bypassSecurityTrustResourceUrl( event.target.result );
+            this.jobService.selectedVideoUrl = event.target.result;
             this.cd.detectChanges();
         } );
         reader.readAsDataURL( file );
-        this.jobService.selectedVideoUrl = file;
         this.cd.detectChanges();
     }
 
