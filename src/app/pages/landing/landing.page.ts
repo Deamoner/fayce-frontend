@@ -54,7 +54,7 @@ export class LandingPage implements OnInit {
             } );
             this.jobService.selectedImageUrl = image.webPath;
             this.imageSelected.next( this.domSanitizer.bypassSecurityTrustResourceUrl( image.webPath ) );
-            this.edit();
+            // this.edit();
         } else {
             this.toasterService.presentToast( 'Accept terms of use and privacy policy.' );
         }
@@ -83,20 +83,22 @@ export class LandingPage implements OnInit {
                         const ctx : any = canvas.getContext( '2d' );
                         const crop : any = result.topCrop;
                         ctx.drawImage(
-                        this.imageRef.nativeElement,
-                        crop.x,
-                        crop.y,
-                        crop.width,
-                        crop.height,
-                        0,
-                        0,
-                        canvas.width,
-                        canvas.width,
-                    );
-                        this.imageSelected.next( canvas.toDataURL( 'image/png' ) );
-                        this.jobService.createFile( canvas.toDataURL( 'image/png' ) );
-                        this.jobService.selectedImageUrl = canvas.toDataURL( 'image/png' );
-                        this.showImageLoader.next( false );
+                            this.imageRef.nativeElement,
+                            crop.x,
+                            crop.y,
+                            crop.width,
+                            crop.height,
+                            0,
+                            0,
+                            canvas.width,
+                            canvas.width,
+                        );
+                        setTimeout( () => {
+                            this.imageSelected.next( this.domSanitizer.bypassSecurityTrustResourceUrl( canvas.toDataURL( 'image/png' ) ) );
+                            this.jobService.createFile( canvas.toDataURL( 'image/png' ) );
+                            this.jobService.selectedImageUrl = canvas.toDataURL( 'image/png' );
+                            this.showImageLoader.next( false );
+                        }, 500 );
                     } );
                 } else {
                     this.imageSelected.next( null );
