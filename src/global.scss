@@ -61,6 +61,14 @@ ion-header {
     border-bottom: 0.1rem solid var(--ion-color-primary);
 }
 
+ion-button {
+    --border-radius: 0.8rem;
+
+    font-weight: bold;
+    font-size: 1.8rem;
+    letter-spacing: 5;
+}
+
 .camera-preview-start {
     background: transparent;
 
