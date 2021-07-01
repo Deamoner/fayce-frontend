@@ -2,5 +2,31 @@
 	"appId": "com.fayce",
 	"appName": "fayce",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"android": {
+		"includePlugins": [
+			"@capacitor/app",
+			"@capacitor/browser",
+			"@capacitor/camera",
+			"@capacitor/filesystem",
+			"@capacitor/haptics",
+			"@capacitor/keyboard",
+			"@capacitor/share",
+			"@capacitor/status-bar",
+			"cordova-plugin-camera-preview"
+		]
+	},
+	"ios": {
+		"includePlugins": [
+			"@capacitor/app",
+			"@capacitor/browser",
+			"@capacitor/camera",
+			"@capacitor/filesystem",
+			"@capacitor/haptics",
+			"@capacitor/keyboard",
+			"@capacitor/share",
+			"@capacitor/status-bar",
+			"LastCam"
+		]
+	}
 }
