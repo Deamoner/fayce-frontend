@@ -32,7 +32,7 @@
 <ion-footer>
   <ion-toolbar *ngIf="!isWeb">
     <ion-buttons slot="start">
-      <ion-button fill="clear" (click)="startTimer( true )" *ngIf="videoUrl">
+      <ion-button fill="clear" (click)="startTimer( true )" [disabled]="!videoUrl">
         <ion-icon slot="icon-only" name="reload"></ion-icon>
       </ion-button>
     </ion-buttons>
