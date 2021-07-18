@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, Platform } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import smartcrop from 'smartcrop';
 
@@ -34,6 +34,7 @@ export class LandingPage implements OnInit {
         private jobService : JobService,
         private navCtrl : NavController,
         private cd : ChangeDetectorRef,
+        private platform : Platform,
     ) { }
 
     public ngOnInit() : void {
@@ -115,6 +116,8 @@ export class LandingPage implements OnInit {
         this.cd.detectChanges();
         const modalRef : HTMLIonModalElement = await this.modalCtrl.create( {
             component : CameraPreviewComponent,
+            cssClass: ( !this.platform.is( 'capacitor' ) ) ? 'default-background' : '',
+            showBackdrop: false,
             componentProps : {
                 photoUrl : this.imageSelected.getValue(),
             },

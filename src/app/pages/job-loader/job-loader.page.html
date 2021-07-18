@@ -1,8 +1,8 @@
 <ion-content class="ion-padding" >
   <div class="set-full-height">
-    <h2>PLEASE WAIT WHILE WE GENERATE YOUR VIDEO</h2>
+    <h2>GENERATING VIDEO...</h2>
     <div class="logo">
-      <img src="assets/images/logo.png" alt="">
+      <img src="assets/images/loader.gif" alt="">
     </div>
     <div *ngIf="(jobService.job$ | async)?.progress" class="ion-margin-bottom">{{ (jobService.job$ | async)?.progress }}%</div>
     <div class="progress-bar">
