@@ -24,6 +24,7 @@ export class JobService {
 
     public selectedImageUrl : string;
     public selectedVideoUrl : string | File;
+    public startTime : number = 0;
     constructor(
         private http : HttpClient,
         private nav : NavController,
@@ -72,6 +73,7 @@ export class JobService {
                         progress : '0',
                         isFinished : false,
                     } );
+                    this.nav.navigateRoot( `${APP_ROUTES.LANDING}` );
                 } else {
                     setTimeout( () => {
                         const jobDetails : JobSubject = this.jobSubject.getValue();
@@ -80,7 +82,14 @@ export class JobService {
                             progress : res.data.completition_stat,
                             isFinished : false,
                         } );
-                        this.keepCheckingJobStatus();
+                        if ( this.startTime < 30 || res.data.status !== 'READY' ) {
+                            this.keepCheckingJobStatus();
+                            this.startTime += 5;
+                        } else {
+                            this.nav.navigateRoot( `${APP_ROUTES.LANDING}` );
+                            this.toaster.presentToast( 'Process not working, Please try again later.' );
+                            this.resetAll();
+                        }
                     }, 5000 );
                 }
             } else {
@@ -117,13 +126,8 @@ export class JobService {
     public async createFile( url : string, type : string = 'image/png' ) : Promise<File> {
         const fileName : string =  ( type === 'image/png' ) ? '1.png' : '1.mp4';
         let data : any ;
-        if ( url.includes( 'base64' ) ) {
-            const urlSplit : string[] = url.split( ',' );
-            data = atob( urlSplit[ urlSplit.length - 1 ] );
-        } else {
-            const response : any = await fetch( url );
-            data = response.blob();
-        }
+        const response : any = await fetch( url );
+        data = await response.blob();
         const metadata : any = {
             type,
         };
