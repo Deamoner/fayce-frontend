@@ -85,6 +85,18 @@ ion-button {
     }
 }
 
+.default-background {
+    background: url('assets/images/default-image.jpg') 50% 50% no-repeat;
+    background-size: cover;
+
+    .modal-wrapper,
+    ion-toolbar,
+    .ion-page {
+        --backdrop-opacity: 0;
+        --background: transparent;
+    }
+}
+
 .header-logo {
     max-width: 8rem;
 }

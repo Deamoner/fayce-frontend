@@ -65,10 +65,8 @@ export class CameraPreviewComponent implements AfterViewInit, OnDestroy {
     }
 
     public dismiss() : void {
-        setTimeout( () => {
-            this.modalCtrl.dismiss();
-            this.jobService.selectedVideoUrl = undefined;
-        }, 2000 );
+        this.modalCtrl.dismiss();
+        this.jobService.selectedVideoUrl = undefined;
     }
 
     private startCameraStream() : void {

@@ -6,7 +6,7 @@
     align-items: center;
     height: 100%;
     padding: 2rem;
-    background: rgba(0, 0, 0, 0.2);
+    // background: rgba(0, 0, 0, 0.2);
 
     ion-icon {
         font-size: 5rem;
@@ -55,8 +55,8 @@
     border: 0.1rem solid var(--ion-color-primary);
 
     > img {
-        max-width: 15rem;
-        max-height: 15rem;
+        max-width: 8.5rem;
+        max-height: 8.5rem;
         vertical-align: text-top;
         object-fit: contain;
     }
@@ -81,4 +81,14 @@ ion-button {
     height: 5rem;
     font-size: 1.8rem;
     margin: 0 auto;
+}
+
+.upload-button {
+    --border-width: 0.1rem;
+
+    font-weight: normal;
+}
+
+ion-content {
+    --background: transparent;
 }

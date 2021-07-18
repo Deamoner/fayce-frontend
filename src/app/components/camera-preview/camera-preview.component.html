@@ -8,7 +8,12 @@
     </div>
   </div>
   <ng-container *ngIf="isWeb; else mobile">
-    <input type="file" class="show-input" #selectVideo id="selectVideo" accept="video/mp4" (change)="videoSelected( $event )">
+    <div class="help ion-justify-content-center" *ngIf="!hideHint">
+      <p>
+        NOW IT IS TIME TO MAKE THE PHOTO COME TO LIFE!<br>SIMPLY RECORD YOUR FACE WITH MINIMAL HEAD MOVEMENTS WHILE SAYING WHATEVER YOU WANT THE PERSON IN THE PHOTO TO SAY. KEEP YOUR VIDEO UNDER 20 SECONDS MAX.</p>
+      <ion-button fill="outline" class="upload-button" (click)="selectVideo.click()">UPLOAD VIDEO NOW</ion-button>
+    </div>
+    <input type="file" hidden class="show-input" #selectVideo id="selectVideo" accept="video/mp4" (change)="videoSelected( $event )">
   </ng-container>
   <ng-template #mobile>
     <div class="help" *ngIf="!hideHint">
@@ -25,7 +30,7 @@
   <video [src]="videoUrl" *ngIf="videoUrl" class="video-ref" controls></video>
 </ion-content>
 <ion-footer>
-  <ion-toolbar>
+  <ion-toolbar *ngIf="!isWeb">
     <ion-buttons slot="start">
       <ion-button fill="clear" (click)="startTimer( true )" *ngIf="videoUrl">
         <ion-icon slot="icon-only" name="reload"></ion-icon>
@@ -47,13 +52,13 @@
   </ion-toolbar>
   <ion-toolbar>
     <ion-row>
-      <ion-col>
+      <ion-col [size]="(isWeb) ? 6 : ''">
         <ion-button expand="block" (click)="dismiss()">
           <ion-icon name="chevron-back-outline" *ngIf="!videoUrl"></ion-icon>
           BACK
         </ion-button>
       </ion-col>
-      <ion-col *ngIf="videoUrl">
+      <ion-col *ngIf="videoUrl" [size]="(isWeb) ? 6 : ''">
         <ion-button expand="block" (click)="next()">
           NEXT
         </ion-button>
