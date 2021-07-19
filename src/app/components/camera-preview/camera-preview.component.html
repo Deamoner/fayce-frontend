@@ -7,13 +7,13 @@
       </div>
     </div>
   </div>
+  <input type="file" hidden class="show-input" #selectVideo id="selectVideo" accept="video/mp4" (change)="videoSelected( $event )">
   <ng-container *ngIf="isWeb; else mobile">
     <div class="help ion-justify-content-center" *ngIf="!hideHint">
       <p>
         NOW IT IS TIME TO MAKE THE PHOTO COME TO LIFE!<br>SIMPLY RECORD YOUR FACE WITH MINIMAL HEAD MOVEMENTS WHILE SAYING WHATEVER YOU WANT THE PERSON IN THE PHOTO TO SAY. KEEP YOUR VIDEO UNDER 20 SECONDS MAX.</p>
       <ion-button fill="outline" class="upload-button" (click)="selectVideo.click()">UPLOAD VIDEO NOW</ion-button>
     </div>
-    <input type="file" hidden class="show-input" #selectVideo id="selectVideo" accept="video/mp4" (change)="videoSelected( $event )">
   </ng-container>
   <ng-template #mobile>
     <div class="help" *ngIf="!hideHint">
@@ -30,13 +30,18 @@
   <video [src]="videoUrl" *ngIf="videoUrl" class="video-ref" controls></video>
 </ion-content>
 <ion-footer>
-  <ion-toolbar *ngIf="!isWeb">
-    <ion-buttons slot="start">
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="!isWeb">
       <ion-button fill="clear" (click)="startTimer( true )" [disabled]="!videoUrl">
         <ion-icon slot="icon-only" name="reload"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">
+    <ion-buttons slot="start" *ngIf="isWeb && videoUrl">
+      <ion-button fill="clear" (click)="selectVideo.click()">
+        <ion-icon slot="icon-only" name="reload"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center" *ngIf="!isWeb">
       <ion-button fill="clear" (click)="startTimer( true )" *ngIf="!isRecording && timer === 4 && !isWeb">
         <ion-icon slot="icon-only" name="mic"></ion-icon>
       </ion-button>
@@ -44,7 +49,7 @@
         <ion-icon slot="icon-only" name="mic"></ion-icon>
       </ion-button>
     </ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="!isWeb">
       <ion-button clear>
         00:{{ seconds }}
       </ion-button>
