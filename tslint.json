@@ -1,0 +1,175 @@
+{
+    "extends" : [ "tslint-config-airbnb", "codelyzer" ],
+    "linterOptions" : {
+      "exclude" : [ "**/*.mock.ts" ]
+    },
+    "rules" : {
+      "align" : [
+        true,
+        "parameters",
+        "statements"
+      ],
+      "array-bracket-spacing" : "always",
+      "callable-types" : true,
+      "comment-format" : false,
+      "function-name" : [
+        true,
+        {
+          "method-regex" : "^[a-z$][\\w\\d]+$",
+          "static-method-regex" : "^[a-z$][\\w\\d]+$"
+        }
+      ],
+      "import-name" : false,
+      "import-spacing" : true,
+      "indent" : [ true, "spaces" ],
+      "interface-over-type-literal" : true,
+      "max-line-length" : false,
+      "member-access" : true,
+      "no-default-export" : true,
+      "no-empty-interface" : true,
+      "no-increment-decrement" : false,
+      "no-redundant-jsdoc": true,
+      "no-non-null-assertion" : true,
+      "no-shadowed-variable" : true,
+      "no-string-throw" : true,
+      "no-this-assignment" : [ true, { "allow-destructuring" : true } ],
+      "ordered-imports" : {
+        "options" : {
+          "grouped-imports" : true,
+          "groups" : [
+            {
+              "name" : "Assets",
+              "match" : "\\.(png|jpe?g|gif|svg|ico|xml|pdf|xls)$",
+              "order" : 40
+            },
+            {
+              "name" : "Project",
+              "match" : "^(src|test|mocks)/",
+              "order" : 20
+            },
+            {
+              "name" : "Relative",
+              "match" : "^\\.",
+              "order" : 30
+            },
+            {
+              "name" : "Libraries",
+              "match" : "^.*",
+              "order" : 10
+            }
+          ]
+        }
+      },
+      "prefer-const" : true,
+      "space-before-function-paren" : false,
+      "space-in-parens" : [ true, "always" ],
+      "ter-computed-property-spacing" : [ true, "always" ],
+      "ter-indent" : [
+        true,
+        4,
+        {
+          "SwitchCase" : 1
+        }
+      ],
+      "ter-prefer-arrow-callback" : false,
+      "typedef" : [
+        true,
+        "arrow-parameter",
+        "call-signature",
+        "member-variable-declaration",
+        "parameter",
+        "property-declaration",
+        "variable-declaration"
+      ],
+      "typedef-whitespace" : [
+        true,
+        {
+          "call-signature" : "onespace",
+          "index-signature" : "onespace",
+          "parameter" : "onespace",
+          "property-declaration" : "onespace",
+          "variable-declaration" : "onespace"
+        },
+        {
+          "call-signature" : "onespace",
+          "index-signature" : "onespace",
+          "parameter" : "onespace",
+          "property-declaration" : "onespace",
+          "variable-declaration" : "onespace"
+        }
+      ],
+      "unified-signatures" : true,
+      "variable-name" : [
+        true,
+        "check-format",
+        "allow-pascal-case",
+        "allow-leading-underscore",
+        "ban-keywords"
+      ],
+      "whitespace" : [
+        true,
+        "check-decl",
+        "check-operator",
+        "check-module",
+        "check-separator",
+        "check-type",
+        "check-typecast",
+        "check-preblock"
+      ],
+  
+  
+      "angular-whitespace": false,
+      "component-class-suffix" : [ true, "Component", "Page" ],
+      "component-max-inline-declarations" : true,
+      "component-selector" : [ true, "element", "app", "kebab-case" ],
+      "contextual-decorator": true,
+      "contextual-lifecycle" : true,
+      "directive-class-suffix" : true,
+      "directive-selector" : [ true, "attribute", "", "camelCase" ],
+      "import-destructuring-spacing": true,
+      "no-attribute-decorator" : true,
+      "no-conflicting-lifecycle" : true,
+      "no-forward-ref" : true,
+      "no-host-metadata-property" : true,
+      "no-input-prefix": false,
+      "no-input-rename" : true,
+      "no-inputs-metadata-property" : true,
+      "no-lifecycle-call" : true,
+      "no-output-native" : true,
+      "no-output-on-prefix" : false,
+      "no-output-rename" : true,
+      "no-outputs-metadata-property" : true,
+      "no-pipe-impure" : true,
+      "no-queries-metadata-property" : true,
+      "no-unused-css" : true,
+      "pipe-prefix": false,
+      "prefer-inline-decorator" : [ true, "HostListener" ],
+      "prefer-on-push-component-change-detection": true,
+      "prefer-output-readonly" : true,
+      "relative-url-prefix": true,
+      "template-accessibility-alt-text": true,
+      "template-accessibility-elements-content": true,
+      "template-accessibility-label-for" : true,
+      "template-accessibility-tabindex-no-positive": true,
+      "template-accessibility-table-scope": true,
+      "template-accessibility-valid-aria": true,
+      "template-banana-in-box" : true,
+      "template-click-events-have-key-events": false,
+      "template-conditional-complexity" : [ true, 4 ],
+      "template-cyclomatic-complexity" : false,
+      "template-i18n" : [ false ],
+      "template-mouse-events-have-key-events": false,
+      "template-no-any": true,
+      "template-no-autofocus": true,
+      "template-no-call-expression": false,
+      "template-no-distracting-elements": true,
+      "template-no-negated-async" : true,
+      "use-component-selector" : true,
+      "use-component-view-encapsulation" : true,
+      "use-injectable-provided-in": false,
+      "use-lifecycle-interface" : true,
+      "use-pipe-decorator": true,
+      "use-pipe-transform-interface" : true
+    }
+  }
+  

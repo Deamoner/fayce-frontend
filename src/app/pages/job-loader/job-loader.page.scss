@@ -1,0 +1,77 @@
+.set-full-height {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.logo {
+    margin: 1.6rem 0;
+
+    img {
+        max-width: 15rem;
+    }
+}
+
+.progress-bar {
+    height: 0.5rem;
+    border-radius: 0.5rem;
+    background: #e5e9f2;
+    width: 20rem;
+    overflow: hidden;
+
+    .progress {
+        height: calc(100% - 0.2rem);
+        width: 0;
+        margin-top: 0.1rem;
+        border-radius: 0.5rem;
+        background: var(--ion-color-primary);
+
+        &.animated {
+            min-width: 5rem;
+            background: var(--ion-color-light);
+            animation: loader 3s infinite;
+            position: relative;
+        }
+    }
+}
+
+@keyframes loader {
+    from {
+        left: -5.5rem;
+    }
+
+    to {
+        left: 25.5rem;
+    }
+}
+
+@keyframes faceAnimation {
+    0% {
+        transform: rotate3d(1, 1, 1, 0deg);
+    }
+
+    25% {
+        transform: rotate3d(1, 1, 1, -15deg);
+    }
+
+    50% {
+        transform: rotate3d(1, 1, 1, 0deg);
+    }
+
+    75% {
+        transform: rotate3d(1, 1, 1, 15deg);
+    }
+}
+
+ion-content {
+    --background: #000;
+}
